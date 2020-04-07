@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testCase id="4">
+  <summary/>
+  <steps>
+    <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexConnect" name="ApexConnect" testItemId="1" title="Salesforce Connect: SalesforceTest (Test)">
+      <arguments>
+        <argument id="connectionName">
+          <value class="value" valueClass="string">SalesforceTest</value>
+        </argument>
+        <argument id="resultName">
+          <value class="value" valueClass="string">SalesforceTest</value>
+        </argument>
+        <argument id="resultScope">
+          <value class="value" valueClass="string">Test</value>
+        </argument>
+        <argument id="uiApplicationName">
+          <value class="value" valueClass="string">LightningSales</value>
+        </argument>
+        <argument id="quickUiLogin">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="closeAllPrimaryTabs">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="reuseConnectionName"/>
+        <argument id="alreadyOpenBehaviour">
+          <value class="value" valueClass="string">Fail</value>
+        </argument>
+        <argument id="privateBrowsingMode"/>
+        <argument id="enableObjectIdLogging">
+          <value class="value" valueClass="boolean">true</value>
+        </argument>
+        <argument id="autoCleanup"/>
+        <argument id="cleanupConnectionName"/>
+        <argument id="logFileLocation"/>
+        <argument id="username"/>
+        <argument id="password"/>
+        <argument id="securityToken"/>
+        <argument id="environment"/>
+        <argument id="lightningMode">
+          <value class="value" valueClass="string">default</value>
+        </argument>
+        <argument id="webBrowser"/>
+      </arguments>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.control.StepGroup" name="StepGroup" testItemId="3" title="Excel Read">
+      <arguments>
+        <argument id="description">
+          <value class="value" valueClass="string">Excel Read</value>
+        </argument>
+      </arguments>
+      <parameterValueSources>
+        <parameterValueSource variableName="ExcelData" variableScope="Test">
+          <cacheToken>C:/Users/ankita.mandal/Documents/Ankita/CIBC - Proposal/Provar/Sample Test Project/Sample Salesforce Project/templates/Leads Data.xlsx;1582563725443</cacheToken>
+          <cachedParameters>
+            <apiParam name="RowNumber"/>
+            <apiParam name="FirstName"/>
+            <apiParam name="LastName"/>
+            <apiParam name="Company"/>
+            <apiParam name="LeadStatus"/>
+          </cachedParameters>
+          <sourceValue class="excelTarget" namesLocation="FirstRowOfRange" whereComparison="EqualTo">
+            <workbookPath class="value" valueClass="string">templates/Leads Data.xlsx</workbookPath>
+            <worksheetName class="value" valueClass="string">Sheet1</worksheetName>
+            <valuesRange class="value" valueClass="string">A1:D5</valuesRange>
+          </sourceValue>
+        </parameterValueSource>
+      </parameterValueSources>
+      <clauses>
+        <clause name="hidden" testItemId="4"/>
+      </clauses>
+    </apiCall>
+    <apiCall apiId="com.provar.plugins.bundled.apis.control.ForEach" name="ForEach" testItemId="7" title="For Each: {ExcelData}=&gt;Row">
+      <arguments>
+        <argument id="list">
+          <value class="variable">
+            <path element="ExcelData"/>
+          </value>
+        </argument>
+        <argument id="fromItem">
+          <value class="value" valueClass="decimal">1</value>
+        </argument>
+        <argument id="valueName">
+          <value class="value" valueClass="string">Row</value>
+        </argument>
+        <argument id="continueOnFailure"/>
+      </arguments>
+      <clauses>
+        <clause name="substeps" testItemId="8">
+          <steps>
+            <apiCall apiId="com.provar.plugins.forcedotcom.core.testapis.ApexCreateObject" name="ApexCreateObject" parameterGeneratorUri="command:com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand" testItemId="2" title="Create Object: Lead=&gt;LeadId">
+              <arguments>
+                <argument id="objectType">
+                  <value class="value" valueClass="string">Lead</value>
+                </argument>
+                <argument id="resultIdName">
+                  <value class="value" valueClass="string">LeadId</value>
+                </argument>
+                <argument id="apexConnectionName">
+                  <value class="value" valueClass="string">SalesforceTest</value>
+                </argument>
+                <argument id="LastName">
+                  <value class="variable">
+                    <path element="Row"/>
+                    <path element="LastName"/>
+                  </value>
+                </argument>
+                <argument id="FirstName">
+                  <value class="variable">
+                    <path element="Row"/>
+                    <path element="FirstName"/>
+                  </value>
+                </argument>
+                <argument id="Company">
+                  <value class="variable">
+                    <path element="Row"/>
+                    <path element="Company"/>
+                  </value>
+                </argument>
+                <argument id="Status">
+                  <value class="variable">
+                    <path element="Row"/>
+                    <path element="LeadStatus"/>
+                  </value>
+                </argument>
+                <argument id="assignmentRuleId"/>
+                <argument id="resultScope">
+                  <value class="value" valueClass="string">Test</value>
+                </argument>
+              </arguments>
+              <parameterGeneratorProperties>
+                <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.ConnectionName">SalesforceTest</propertyValue>
+                <propertyValue name="com.provar.plugins.forcedotcom.ui.commands.CreateCustomObjectTestStepCommand.CustomObjectName">Lead</propertyValue>
+              </parameterGeneratorProperties>
+              <generatedParameters>
+                <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Lead&amp;field=LastName" name="LastName" title="LastName"/>
+                <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Lead&amp;field=FirstName" name="FirstName" title="FirstName"/>
+                <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Lead&amp;field=Company" name="Company" title="Company"/>
+                <apiParam group="fields" modelBinding="sf:ui:binding:object?object=Lead&amp;field=Status" name="Status" title="Status"/>
+              </generatedParameters>
+            </apiCall>
+          </steps>
+        </clause>
+      </clauses>
+    </apiCall>
+  </steps>
+</testCase>
