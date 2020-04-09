@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Sample Salesforce Project/tests" tests="0" failures="0" skipped="0" hostname="CA-L6PBSQQ2" time="1.58644582E9" timestamp="Wed Dec 31 19:00:00 EST 1969">
+	<properties>
+		<property name="excludeCallableTestCases" value="true"/>
+		<property name="testEnvironment" value=""/>
+		<property name="pluginOutputLevel" value="WARNING"/>
+		<property name="projectPath" value=".."/>
+		<property name="salesforceMetadataCache" value="Reuse"/>
+		<property name="resultsPathDisposition" value="Increment"/>
+		<property name="testOutputLevel" value="WARNING"/>
+		<property name="webBrowserType" value="Google Chrome"/>
+		<property name="resultsPath" value="../ANT/Results"/>
+		<property name="webBrowserConfiguration" value="Full Screen"/>
+		<property name="projectCachePath" value="C:\Users\santosh.bukkashetti\git\Provar\SalesforceTrial2\Sample Salesforce Project\ANT\..\..\.provarCaches"/>
+	</properties>
+</testsuite>
